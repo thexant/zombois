@@ -1,0 +1,55 @@
+<html>
+  <head>
+	<style>
+#zombie_map {
+    width: 1280px;
+    height: 720px;
+    background-color: grey;
+}
+</style> 
+<title>My page title</title>
+  </head>
+  <body>
+	My Zombie Map
+	<div id="zombie_map"></div>
+
+<form>
+
+<select id="icon_to_use">
+  <option value="zombie.png">Zombie</option>
+  <option value="medical.png">Hospital</option>
+  <option value="guns.png">Weapons</option>
+  <option value="food.png">Food</option>
+</select>
+
+</form>
+	
+<script>
+    var zombie_map;
+    function initMap() {
+
+            zombie_map = new google.maps.Map(document.getElementById('zombie_map'), {
+            zoom: 10,
+            center: {lat: 50.9244310, lng: -113.9715720}
+        });
+    	zombie_map.addListener('click', function(e) {
+  		var location = e.latLng;
+		place_marker(location);
+	});
+	}
+
+function place_marker(location){
+	var emoji = document.getElementById('icon_to_use').value;
+	var marker = new google.maps.Marker({
+  	position: location,
+  	map: zombie_map,
+	icon: emoji
+});
+console.log(location.lat() + " " + location.lng() + " " + emoji );
+}
+</script>
+	 <script async defer
+    		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKbyZQZ9lOoD8VOs5OfPIXfW8-cQQxxag&callback=initMap">
+ 	 </script>
+  </body>
+</html>
